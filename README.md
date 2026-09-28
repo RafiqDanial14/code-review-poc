@@ -56,12 +56,12 @@ A tool "found" a bug if it reports a problem on the buggy line (or, for Chart-1,
 
 | Bug | PMD | SpotBugs | LLM |
 |---|---|---|---|
-| Lang-33 | no | ? | ? |
-| Math-94 | no | ? | ? |
-| Chart-1 | no | ? | ? |
-| Lang-39 | no | ? | ? |
-| **Found** | 0/4 | ?/4 | ?/4 |
-| **Other warnings** | 9 | ? | ? |
+| Lang-33 | no | no | ? |
+| Math-94 | no | no | ? |
+| Chart-1 | no | yes | ? |
+| Lang-39 | no | no | ? |
+| **Found** | 0/4 | 1/4 | ?/4 |
+| **Other warnings** | 9 | 2 | ? |
 
 ## Observations
 

@@ -1,0 +1,4 @@
+L D PZLA: Should Lang33.toClass(Object[]) return a zero length array rather than null?  At Lang33.java:[line 13]
+H C NP: Null pointer dereference of dataset in Chart1.getLegendItems()  Dereferenced at Chart1.java:[line 39]
+M D NP: Load of known null value in Chart1.getLegendItems()  At Chart1.java:[line 39]
+L P UrF: Unread field: Chart1$LegendItem.series  At Chart1.java:[line 19]
