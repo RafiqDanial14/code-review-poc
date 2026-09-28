@@ -45,14 +45,14 @@ On Windows use `pmd.bat` instead of `pmd`.
 java -jar tools/spotbugs-4.10.4/lib/spotbugs.jar -textui -low -output results/spotbugs.txt build
 ```
 
-**4. LLM review**: paste each file from `bugs/` into a new chat (delete the first comment lines, they reveal the bug name) with:
-> Review this Java code for bugs. Only report real defects, not style. Give the line number for each.
+**4. LLM review** (ChatGPT, thinking off): paste each file from `bugs/` into a new chat (delete the first 2 comment lines, they reveal the bug name) with:
+> Review this Java code for bugs. Only report real defects, not style. Say which line of code each bug is on.
 
-Save each answer as `results/llm-<bug>.txt`.
+The answers are saved in `results/llm-<bug>.txt`.
 
 ## Results
 
-A tool "found" a bug if it reports a problem on the buggy line (or, for Chart-1, the line where the null value is used).
+A tool "found" a bug if it points at the buggy code: for PMD and SpotBugs by line number (for Chart-1 also the line where the null value is used), for the LLM by the code line it quotes, since its line numbers are not always correct.
 
 | Bug | PMD | SpotBugs | LLM |
 |---|---|---|---|
@@ -67,9 +67,8 @@ A tool "found" a bug if it reports a problem on the buggy line (or, for Chart-1,
 
 - PMD found none of the bugs. All 9 warnings were style issues (missing package, utility classes).
 - SpotBugs found only Chart-1, because it tracks which values a variable can have (here: always null).
-- The LLM (ChatGPT, thinking off) found all 4 bugs and suggested the correct fix each time. It was the only approach that caught bugs that break the documented behaviour (Lang-33, Lang-39) or depend on number ranges (Math-94).
+- The LLM found all 4 bugs and suggested the correct fix each time. It was the only approach that caught bugs that break the documented behaviour (Lang-33, Lang-39) or depend on number ranges (Math-94).
 - The LLM gave a wrong line number once (Lang-39) but pointed at the correct code.
-- Caution: Defects4J is public, so the LLM may have seen these bugs during training. 4 bugs are too few for a general conclusion.
 
 ## Limitations
 
