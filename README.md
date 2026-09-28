@@ -56,16 +56,20 @@ A tool "found" a bug if it reports a problem on the buggy line (or, for Chart-1,
 
 | Bug | PMD | SpotBugs | LLM |
 |---|---|---|---|
-| Lang-33 | no | no | ? |
-| Math-94 | no | no | ? |
-| Chart-1 | no | yes | ? |
-| Lang-39 | no | no | ? |
-| **Found** | 0/4 | 1/4 | ?/4 |
-| **Other warnings** | 9 | 2 | ? |
+| Lang-33 | no | no | yes |
+| Math-94 | no | no | yes |
+| Chart-1 | no | yes | yes |
+| Lang-39 | no | no | yes |
+| **Found** | 0/4 | 1/4 | 4/4 |
+| **Other warnings** | 9 | 2 | 1 |
 
 ## Observations
 
-_(to be written after running)_
+- PMD found none of the bugs. All 9 warnings were style issues (missing package, utility classes).
+- SpotBugs found only Chart-1, because it tracks which values a variable can have (here: always null).
+- The LLM (ChatGPT, thinking off) found all 4 bugs and suggested the correct fix each time. It was the only approach that caught bugs that break the documented behaviour (Lang-33, Lang-39) or depend on number ranges (Math-94).
+- The LLM gave a wrong line number once (Lang-39) but pointed at the correct code.
+- Caution: Defects4J is public, so the LLM may have seen these bugs during training. 4 bugs are too few for a general conclusion.
 
 ## Limitations
 
