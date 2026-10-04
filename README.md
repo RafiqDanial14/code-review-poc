@@ -80,7 +80,7 @@ Example: SpotBugs warned about Chart-1 at line 39, three lines from the fix on l
 
 – = no candidate, or candidate labelled mismatch.
 
-Mistral on Lang-33 is labelled partial: it pointed at the correct line and its fix contained the correct null check, but its explanation of the bug was wrong.
+Mistral on Lang-33 is labelled partial (LLM rule): it pointed at the correct line and its fix contained the correct null check, but it claimed null elements are "ignored" instead of causing a NullPointerException.
 
 ## Observations
 
