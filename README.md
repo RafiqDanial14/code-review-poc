@@ -60,7 +60,10 @@ LLM answers are in `results/llm-<model>-clean-<bug>.txt`.
 
 Scoring follows Habib & Pradel, *"How Many of All Bugs Do We Find? A Study of Static Bug Detectors"* (ASE 2018). A warning is a candidate if it is on or within 1 line of a line changed by the fix (diff-based), or if it disappears after the fix (fixed-warnings-based). Each candidate is then checked by hand and labelled **full match**, **partial match** or **mismatch**.
 
-LLM answers are judged by the code they quote, since their line numbers are not always correct.
+LLM answers are judged by the code they quote, since their line numbers are not always correct. Because LLMs explain the bug in words, they get their own labels (not the paper's):
+- **full**: points at the buggy code and explains the defect correctly
+- **partial**: points at the buggy code and suggests a correct fix, but explains the defect wrongly
+- **–**: does not point at the buggy code
 
 Example: SpotBugs warned about Chart-1 at line 39, three lines from the fix on line 36. After applying the fix (`fixed/Chart1.java`), both warnings disappear (`results/spotbugs-fixed-Chart1.txt`), so it is a candidate. The fix changes only the line that causes the null dereference, so it is labelled a full match.
 
@@ -81,7 +84,7 @@ Mistral on Lang-33 is labelled partial: it pointed at the correct line and its f
 
 ## Observations
 
-- PMD, Checkstyle and Error Prone produced 58 warnings together, all about style, formatting or the missing package. None pointed at a bug.
+- PMD, Checkstyle and Error Prone produced 58 warnings together, all about style, design, formatting or the missing package. None pointed at a bug.
 - SpotBugs found only Chart-1, the one bug where a variable is clearly always `null` when used.
 - ChatGPT found all 4 bugs, including the ones that break the documented behaviour (Lang-33, Lang-39) or depend on number ranges (Math-94). It gave wrong line numbers but quoted the correct code.
 - Mistral found none fully. Most of its 11 other remarks were wrong, and some of its suggested fixes kept or added bugs.
