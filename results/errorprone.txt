@@ -7,14 +7,26 @@
 [INFO] Loaded 23983 auto-discovered prefixes for remote repository central (prefixes-central.txt)
 [INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
 [INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ code-review-poc ---
+[INFO] Deleting C:\Users\rafiq\Downloads\code-review-poc\code-review-poc\target
+[INFO] 
 [INFO] --- resources:3.5.0:resources (default-resources) @ code-review-poc ---
 [INFO] skip non existing resourceDirectory C:\Users\rafiq\Downloads\code-review-poc\code-review-poc\src\main\resources
 [INFO] 
 [INFO] --- compiler:3.13.0:compile (default-compile) @ code-review-poc ---
-[INFO] Nothing to compile - all classes are up to date.
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 4 source files with javac [debug release 17] to target\classes
+[WARNING] /C:/Users/rafiq/Downloads/code-review-poc/code-review-poc/bugs/Chart1.java:[3,1] [DefaultPackage] Java classes shouldn't use default package
+    (see https://errorprone.info/bugpattern/DefaultPackage)
+[WARNING] /C:/Users/rafiq/Downloads/code-review-poc/code-review-poc/bugs/Lang33.java:[3,1] [DefaultPackage] Java classes shouldn't use default package
+    (see https://errorprone.info/bugpattern/DefaultPackage)
+[WARNING] /C:/Users/rafiq/Downloads/code-review-poc/code-review-poc/bugs/Lang39.java:[3,1] [DefaultPackage] Java classes shouldn't use default package
+    (see https://errorprone.info/bugpattern/DefaultPackage)
+[WARNING] /C:/Users/rafiq/Downloads/code-review-poc/code-review-poc/bugs/Math94.java:[3,1] [DefaultPackage] Java classes shouldn't use default package
+    (see https://errorprone.info/bugpattern/DefaultPackage)
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  1.822 s
-[INFO] Finished at: 2026-10-04T17:51:50+02:00
+[INFO] Total time:  3.958 s
+[INFO] Finished at: 2026-10-04T18:31:31+02:00
 [INFO] ------------------------------------------------------------------------

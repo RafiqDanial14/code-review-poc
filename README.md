@@ -50,7 +50,7 @@ java -cp build ReproduceBugs
 
 tools/pmd-bin-7.28.0/bin/pmd check -d bugs -R rulesets/java/quickstart.xml -f text -r results/pmd.txt
 java -jar tools/checkstyle-10.26.1-all.jar -c /sun_checks.xml bugs -o results/checkstyle.txt
-tools/apache-maven-3.10.0/bin/mvn compile -l results/errorprone.txt
+tools/apache-maven-3.10.0/bin/mvn clean compile -l results/errorprone.txt
 java -jar tools/spotbugs-4.10.4/lib/spotbugs.jar -textui -low -output results/spotbugs.txt build
 ```
 
