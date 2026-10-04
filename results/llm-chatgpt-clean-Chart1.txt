@@ -1,0 +1,41 @@
+ChatGPT, thinking off, clean input (llm-input/Chart1.java), 04.10.2026
+
+There is **1 real defect**.
+
+### Bug 1 — Incorrect null check causes `NullPointerException`
+
+**Line 28:**
+
+```java
+if (dataset != null) {
+    return result;
+}
+```
+
+This condition is backwards.
+
+* If `dataset != null`, the method **returns immediately**, even though a valid dataset exists.
+* If `dataset == null`, execution continues to:
+
+  ```java
+  int seriesCount = dataset.getRowCount();
+  ```
+
+  which causes a **`NullPointerException`**.
+
+The intended condition is:
+
+```java
+if (dataset == null) {
+    return result;
+}
+```
+
+### Effect
+
+| Dataset  | Current behavior       | Correct behavior      |
+| -------- | ---------------------- | --------------------- |
+| `null`   | `NullPointerException` | Return empty list     |
+| non-null | Returns empty list     | Generate legend items |
+
+**So the defect is on line 28: `if (dataset != null)` — the null check is inverted.**

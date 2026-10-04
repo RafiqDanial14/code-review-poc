@@ -1,0 +1,78 @@
+ChatGPT, thinking off, clean input (llm-input/Lang39.java), 04.10.2026
+
+I found **2 real defects**. Both are `NullPointerException` bugs caused by the code later assuming entries are non-null even though the method explicitly documents that null entries should be ignored.
+
+### 1. `NullPointerException` when `searchList[i]` is `null`
+
+**Buggy line:**
+
+```java
+int greater = replacementList[i].length() - searchList[i].length();
+```
+
+**Why it is a defect:**
+Earlier, the code explicitly treats `searchList[i] == null` as valid and skips that replacement:
+
+```java
+if (... || searchList[i] == null || ... || replacementList[i] == null) {
+    continue;
+}
+```
+
+But the later buffer-size calculation does **not** perform the same null check. Therefore:
+
+```java
+replaceEach("abc", new String[]{null}, new String[]{"x"});
+```
+
+will eventually execute:
+
+```java
+searchList[0].length()
+```
+
+and throw a `NullPointerException`.
+
+The documentation says a null entry in `searchList` is **"documented to be ignored"**, so throwing an exception is incorrect.
+
+---
+
+### 2. `NullPointerException` when `replacementList[i]` is `null`
+
+**Same buggy line:**
+
+```java
+int greater = replacementList[i].length() - searchList[i].length();
+```
+
+**Why it is a defect:**
+Again, the earlier matching logic explicitly says null replacements should be ignored:
+
+```java
+|| replacementList[i] == null
+```
+
+But the buffer-size calculation unconditionally calls:
+
+```java
+replacementList[i].length()
+```
+
+For example:
+
+```java
+replaceEach("abc", new String[]{"a"}, new String[]{null});
+```
+
+should leave `"abc"` unchanged, because the null replacement is supposed to be ignored. Instead, this line throws a `NullPointerException`.
+
+---
+
+### Summary
+
+| Line                                                                  | Defect                                |
+| --------------------------------------------------------------------- | ------------------------------------- |
+| `int greater = replacementList[i].length() - searchList[i].length();` | NPE when `searchList[i] == null`      |
+| Same line                                                             | NPE when `replacementList[i] == null` |
+
+**No other real defects are apparent in the provided method.** The rest of the null/empty handling and replacement-selection logic is consistent with the documented behavior.

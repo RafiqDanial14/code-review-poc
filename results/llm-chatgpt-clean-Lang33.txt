@@ -1,0 +1,59 @@
+ChatGPT, thinking off, clean input (llm-input/Lang33.java), 04.10.2026
+
+There is **1 real defect**.
+
+### Bug — `NullPointerException` when an array element is `null`
+
+**Line:**
+
+```java
+classes[i] = array[i].getClass();
+```
+
+**Why it is a bug:**
+The method's Javadoc explicitly says:
+
+> "If any of these objects is null, a null element will be inserted into the array."
+
+But if `array[i]` is `null`, calling `.getClass()` on it throws a `NullPointerException`.
+
+**Example:**
+
+```java
+Object[] array = {"hello", null, 123};
+toClass(array);
+```
+
+At `i = 1`:
+
+```java
+array[1].getClass()
+```
+
+becomes:
+
+```java
+null.getClass()
+```
+
+→ `NullPointerException`.
+
+**Expected result:**
+
+```java
+Class<?>[] { String.class, null, Integer.class }
+```
+
+**Fix:**
+
+```java
+classes[i] = array[i] == null ? null : array[i].getClass();
+```
+
+### Summary
+
+| Line                                | Defect                                                          | Severity     |
+| ----------------------------------- | --------------------------------------------------------------- | ------------ |
+| `classes[i] = array[i].getClass();` | Fails to handle `null` elements despite the documented contract | **Real bug** |
+
+The `array == null` and `array.length == 0` handling are correct.
