@@ -60,10 +60,14 @@ LLM answers are in `results/llm-<model>-clean-<bug>.txt`.
 
 Scoring follows Habib & Pradel, *"How Many of All Bugs Do We Find? A Study of Static Bug Detectors"* (ASE 2018). A warning is a candidate if it is on or within 1 line of a line changed by the fix (diff-based), or if it disappears after the fix (fixed-warnings-based). Each candidate is then checked by hand and labelled **full match**, **partial match** or **mismatch**.
 
-LLM answers are judged by the code they quote, since their line numbers are not always correct. Because LLMs explain the bug in words, they get their own labels (not the paper's):
-- **full**: points at the buggy code and explains the defect correctly
-- **partial**: points at the buggy code and suggests a correct fix, but explains the defect wrongly
-- **–**: does not point at the buggy code
+LLM answers are judged by the code they quote, since their line numbers are not always correct. The quoted code "points at the bug" if it is on a line changed by the fix, or within 1 line of it (the same window as the paper). Because LLMs explain the bug in words, they get their own labels (not the paper's):
+- **full**: points at the bug and explains the defect correctly
+- **partial**: points at the bug, but the explanation is wrong or missing
+- **–**: does not point at the bug
+
+Whether the suggested fix is correct is noted separately and does not change the label.
+
+Example: Mistral's first Lang-39 remark is about `increase += 3 * greater` (line 55). That is inside the buggy loop but outside the window around line 53, and it concerns the size estimate rather than the null problem, so it is labelled –.
 
 Example: SpotBugs warned about Chart-1 at line 39, three lines from the fix on line 36. After applying the fix (`fixed/Chart1.java`), both warnings disappear (`results/spotbugs-fixed-Chart1.txt`), so it is a candidate. The fix changes only the line that causes the null dereference, so it is labelled a full match.
 
