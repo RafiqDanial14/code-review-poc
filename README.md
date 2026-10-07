@@ -32,8 +32,8 @@ Each file contains the buggy method, made to compile on its own. Lang-33, Lang-3
 | Checkstyle | 10.26.1 | `sun_checks.xml` (version 14 needs Java 21) |
 | Error Prone | 2.36.0 | default checks, via Maven 3.10.0 (`pom.xml`, `.mvn/jvm.config`) |
 | SpotBugs | 4.10.4 | `-low` |
-| ChatGPT | web app | thinking off, one new chat per file |
-| Mistral | Ollama 0.35.1, local | one new chat per file |
+| ChatGPT | web app, Free plan (model not shown) | Think off, one new chat per file |
+| Mistral | 7.2B, Q4_K_M, via Ollama 0.35.1, local | one new chat per file |
 
 All runs on Java 17. Both LLMs got the same prompt:
 > Review this Java code for bugs. Only report real defects, not style. Say which line of code each bug is on.
