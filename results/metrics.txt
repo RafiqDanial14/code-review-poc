@@ -1,0 +1,22 @@
+bugs\Chart1.java:9:	NcssCount:	The method 'getRowCount()' has a NCSS line count of 1.
+bugs\Chart1.java:9:	CyclomaticComplexity:	The method 'getRowCount()' has a cyclomatic complexity of 1.
+bugs\Chart1.java:13:	NcssCount:	The method 'getIndexOf(Chart1)' has a NCSS line count of 1.
+bugs\Chart1.java:13:	CyclomaticComplexity:	The method 'getIndexOf(Chart1)' has a cyclomatic complexity of 1.
+bugs\Chart1.java:14:	NcssCount:	The method 'getDataset(int)' has a NCSS line count of 1.
+bugs\Chart1.java:14:	CyclomaticComplexity:	The method 'getDataset(int)' has a cyclomatic complexity of 1.
+bugs\Chart1.java:19:	NcssCount:	The constructor 'LegendItem(int)' has a NCSS line count of 2.
+bugs\Chart1.java:19:	CyclomaticComplexity:	The constructor 'LegendItem(int)' has a cyclomatic complexity of 1.
+bugs\Chart1.java:24:	NcssCount:	The constructor 'Chart1(CategoryPlot)' has a NCSS line count of 2.
+bugs\Chart1.java:24:	CyclomaticComplexity:	The constructor 'Chart1(CategoryPlot)' has a cyclomatic complexity of 1.
+bugs\Chart1.java:29:	NcssCount:	The method 'getLegendItems()' has a NCSS line count of 12.
+bugs\Chart1.java:29:	CognitiveComplexity:	The method 'getLegendItems()' has a cognitive complexity of 3, current threshold is 1
+bugs\Chart1.java:29:	CyclomaticComplexity:	The method 'getLegendItems()' has a cyclomatic complexity of 4.
+bugs\Lang33.java:11:	NcssCount:	The method 'toClass(Object[])' has a NCSS line count of 10.
+bugs\Lang33.java:11:	CognitiveComplexity:	The method 'toClass(Object[])' has a cognitive complexity of 3, current threshold is 1
+bugs\Lang33.java:11:	CyclomaticComplexity:	The method 'toClass(Object[])' has a cyclomatic complexity of 4.
+bugs\Lang39.java:11:	NcssCount:	The method 'replaceEach(String, String[], String[])' has a NCSS line count of 52.
+bugs\Lang39.java:11:	CognitiveComplexity:	The method 'replaceEach(String, String[], String[])' has a cognitive complexity of 30, current threshold is 1
+bugs\Lang39.java:11:	CyclomaticComplexity:	The method 'replaceEach(String, String[], String[])' has a cyclomatic complexity of 31.
+bugs\Math94.java:9:	NcssCount:	The method 'gcd(int, int)' has a NCSS line count of 24.
+bugs\Math94.java:9:	CognitiveComplexity:	The method 'gcd(int, int)' has a cognitive complexity of 13, current threshold is 1
+bugs\Math94.java:9:	CyclomaticComplexity:	The method 'gcd(int, int)' has a cyclomatic complexity of 13.

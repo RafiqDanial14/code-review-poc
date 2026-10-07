@@ -1,0 +1,25 @@
+﻿Found a 6 line (58 tokens) duplication in the following files: 
+Starting at line 29 of C:\Users\rafiq\Downloads\code-review-poc\code-review-poc\bugs\Lang39.java
+Starting at line 72 of C:\Users\rafiq\Downloads\code-review-poc\code-review-poc\bugs\Lang39.java
+
+        for (int i = 0; i < searchLength; i++) {
+            if (noMoreMatchesForReplIndex[i] || searchList[i] == null
+                    || searchList[i].length() == 0 || replacementList[i] == null) {
+                continue;
+            }
+            tempIndex = text.indexOf(searchList[i]);
+
+=====================================================================
+Found a 8 line (36 tokens) duplication in the following files: 
+Starting at line 34 of C:\Users\rafiq\Downloads\code-review-poc\code-review-poc\bugs\Lang39.java
+Starting at line 77 of C:\Users\rafiq\Downloads\code-review-poc\code-review-poc\bugs\Lang39.java
+
+            tempIndex = text.indexOf(searchList[i]);
+            if (tempIndex == INDEX_NOT_FOUND) {
+                noMoreMatchesForReplIndex[i] = true;
+            } else if (textIndex == -1 || tempIndex < textIndex) {
+                textIndex = tempIndex;
+                replaceIndex = i;
+            }
+        }
+

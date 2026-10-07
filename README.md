@@ -21,7 +21,7 @@ I took 4 real bugs from [Defects4J](https://github.com/rjust/defects4j) and chec
 | Chart-1 | JFreeChart | `Chart1.java` | 36 | `!=` instead of `==` in a null check |
 | Lang-39 | Commons Lang | `Lang39.java` | 53 | Loop does not skip `null` entries → NullPointerException |
 
-Each file contains one method from the buggy version, simplified so it compiles on its own.
+Each file contains the buggy method, made to compile on its own. Lang-33, Lang-39 and Math-94 are near-verbatim copies of the original methods. Chart-1 is a simplified reconstruction: the buggy line and its surrounding lines are from the Defects4J patch, the JFreeChart types are replaced by small stand-ins and the loop is shortened.
 `tests/ReproduceBugs.java` triggers every bug at runtime (all 4 print `FAIL`).
 
 ## Tools and settings
@@ -52,6 +52,9 @@ tools/pmd-bin-7.28.0/bin/pmd check -d bugs -R rulesets/java/quickstart.xml -f te
 java -jar tools/checkstyle-10.26.1-all.jar -c /sun_checks.xml bugs -o results/checkstyle.txt
 tools/apache-maven-3.10.0/bin/mvn clean compile -l results/errorprone.txt
 java -jar tools/spotbugs-4.10.4/lib/spotbugs.jar -textui -low -output results/spotbugs.txt build
+
+tools/pmd-bin-7.28.0/bin/pmd check -d bugs -R metrics.xml -f text -r results/metrics.txt
+tools/pmd-bin-7.28.0/bin/pmd cpd --minimum-tokens 20 -d bugs/Lang39.java --language java -f text > results/cpd-Lang39.txt
 ```
 
 LLM answers are in `results/llm-<model>-clean-<bug>.txt`.
@@ -86,6 +89,23 @@ Example: SpotBugs warned about Chart-1 at line 39, three lines from the fix on l
 
 Mistral on Lang-33 is labelled partial (LLM rule): it pointed at the correct line and its fix contained the correct null check, but it claimed null elements are "ignored" instead of causing a NullPointerException.
 
+**Suggested fixes (noted separately, not part of the label):**
+- ChatGPT: all 4 fixes correct and equal to the official Defects4J fixes.
+- Mistral: Lang-33 fix correct (but it also removes the empty-array check). Chart-1 fix does not prevent the crash. Lang-39 fix adds a new crash on null (`isEmpty()`). Math-94 fix keeps `u * v == 0` and breaks the rest of the algorithm.
+
+## Code quality metrics
+
+Measured with PMD 7.28.0 (`metrics.xml`, results in `results/metrics.txt`). PMD counts `&&` and `||` as extra paths.
+
+| Method | Cyclomatic | Cognitive | Length (NCSS) | Duplication (CPD) |
+|---|---|---|---|---|
+| Lang-33 `toClass` | 4 | 3 | 10 | none |
+| Chart-1 `getLegendItems` | 4 | 3 | 12 | none |
+| Math-94 `gcd` | 13 | 13 | 24 | none |
+| Lang-39 `replaceEach` | 31 | 30 | 52 | 2 blocks |
+
+In Lang-39, CPD found the same null check twice (lines 29 and 72, `results/cpd-Lang39.txt`). The third loop at line 53 is missing it, which is the bug.
+
 ## Observations
 
 - PMD, Checkstyle and Error Prone produced 58 warnings together, all about style, design, formatting or the missing package. None pointed at a bug.
@@ -103,8 +123,3 @@ Mistral on Lang-33 is labelled partial (LLM rule): it pointed at the correct lin
 - Tools only saw single simplified methods, not the full projects.
 - The fixed-version check was only run for SpotBugs on Chart-1.
 
-## Open questions for the thesis
-
-- Does ChatGPT's lead hold on many more bugs, and does it come from understanding or from training data?
-- Should valid extra findings (like the `Integer.MIN_VALUE` remark) count separately from false positives?
-- Defects4J verifies its bugs with Java 11; the tools here ran on Java 17. Does that combination work for the full projects?
