@@ -90,7 +90,7 @@ Example: SpotBugs warned about Chart-1 at line 39, three lines from the fix on l
 Mistral on Lang-33 is labelled partial (LLM rule): it pointed at the correct line and its fix contained the correct null check, but it claimed null elements are "ignored" instead of causing a NullPointerException.
 
 **Suggested fixes (noted separately, not part of the label):**
-- ChatGPT: all 4 fixes correct and equal to the official Defects4J fixes.
+- ChatGPT: gave a fix for Chart-1, Lang-33 and Math-94. All three are correct and match the official Defects4J fix. For Lang-39 it described the bug but gave no fix.
 - Mistral: Lang-33 fix correct (but it also removes the empty-array check). Chart-1 fix does not prevent the crash. Lang-39 fix adds a new crash on null (`isEmpty()`). Math-94 fix keeps `u * v == 0` and breaks the rest of the algorithm.
 
 ## Code quality metrics
